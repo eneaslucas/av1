@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Hospital Aleatorio</title>
+	<style>
+		body { margin: 0; }
+		img { height: 9px; width: 9px; padding-bottom: 9px;}
+		.escopo { 
+			width: 100%;
+			max-width: 1038px;
+			margin: auto;
+		}
+		.lixo {height: 10px; width: 10px; float: right; }
+		.titulos { width: 245px; height: 20px; margin-right: 8px;
+			text-align: center; display: inline-block; }
+		.fundovermelho{ background-color: red; }
+	  	#sortable1, #sortable2, #sortable3, #sortable4 {
+		    border: 1px solid #ccc;
+		    width: 250px;
+		    min-height: 240px;
+		    list-style-type: none;
+		    margin: 10px 0 0 0;
+		    padding: 5px 0 0 0;
+		    float: left;
+		    margin-right: 10px;
+	  	}
+	  	#sortable1 { border: 1px solid #ccc; background-color:#FFF; }
+	  	#sortable2 { border: 1px solid #ccc; background-color:#C1F8C7; }
+	  	#sortable3 { border: 1px solid #ccc; background-color:#FDFABA; }
+	  	#sortable4 { margin-right: 0; border: 1px solid #ccc; background-color:#E58A8A; }
+	  	#sortable1 li, #sortable2 li, #sortable3 li, #sortable4 li {
+	  		border: 1px solid #eee;
+		    margin: 0 5px 5px 5px;
+		    padding: 5px;
+		    font-size: 1.2em;
+		    width: 227px;
+	  	}
+  	</style>
+	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script>
+
+		$( function() {
+		    $( "#sortable1, #sortable2, #sortable3, #sortable4" ).sortable({
+	      		connectWith: ".connectedSortable"
+		    }).disableSelection();
+	  	} );
+
+	  	var contador=0;
+	    $( document ).ready(function() {
+	      	$("#adicionar").click(function() {
+	        	var entrada = $("#entrada").val();
+	        	$("#sortable1").append("<li id=nome"+contador+" class='paciente'>"
+	        		+entrada+"<a class='lixo' onClick='deletar()'><img src='delete.png'/></a></li>");
+	        	contador++;
+	      	});
+	    });
+
+		function deletar() {
+	  		console.log("deletou");
+	  		var pacientes = document.querySelectorAll(".paciente");
+
+	  		pacientes.forEach(function(paciente){
+	  		paciente.addEventListener("click", paciente.remove);
+	  		});
+	  	}
+    </script>
+</head>
+<body>
+	<div class="escopo">
+		<div class="logo">
+			<h3> Hospital Tudo Certo LTDA </h3>
+		</div>
+		<div class="entrada">
+			<input type=text id=entrada placeholder="Nome e Sobrenome">
+		  	<button id=adicionar >Adicionar</button>
+	  	</div>
+	  	<div class="alas">
+		  	<div>
+		  		<div class="titulos"><h3>Entrada</h3></div>
+		  		<div class="titulos"><h3>Pouca Urgencia</h3></div>
+		  		<div class="titulos"><h3>Urgente</h3></div>
+		  		<div class="titulos"><h3>Emergência</h3></div>
+		  	</div>
+	  	
+		  	<div>
+			  	<ul id=sortable1 class="connectedSortable">
+			  	</ul>
+			</div>
+			<div>
+			  	<ul id=sortable2 class="connectedSortable">
+			  	</ul>
+			</div>
+			<div>
+			  	<ul id=sortable3 class="connectedSortable">
+			  	</ul>
+			</div>
+			<div>
+			  	<ul id=sortable4 class="connectedSortable">
+			  	</ul>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
